@@ -129,9 +129,6 @@ function Login() {
               mb={2}
             >
               <MDTypography variant="body2" textAlign="center">
-                <MDTypography component="span" variant="body2" sx={{ fontWeight: "medium" }}>
-                  admin@jsonapi.com
-                </MDTypography>
                 &nbsp;with password&nbsp;
                 <MDTypography component="span" variant="body2" sx={{ fontWeight: "medium" }}>
                   secret
