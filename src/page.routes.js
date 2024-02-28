@@ -48,8 +48,20 @@ const pageRoutes = [
             route: "/dashboards/analytics",
           },
           {
+            name: "discover",
+            route: "/dashboards/discover",
+          },
+          {
             name: "sales",
             route: "/dashboards/sales",
+          },
+          {
+            name: "automotive",
+            route: "/dashboards/automotive",
+          },
+          {
+            name: "smart-home",
+            route: "/dashboards/smart-home",
           },
         ],
       },

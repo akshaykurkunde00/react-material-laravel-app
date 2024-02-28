@@ -14,11 +14,13 @@ Coded by www.creative-tim.com
 */
 
 // @mui material components
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import Grid from "@mui/material/Grid";
 import Tooltip from "@mui/material/Tooltip";
 import Icon from "@mui/material/Icon";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
 // Material Dashboard 2 PRO React components
 import MDBox from "components/MDBox";
@@ -28,28 +30,26 @@ import MDTypography from "components/MDTypography";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
-import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
-import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
-import BookingCard from "examples/Cards/BookingCard";
-
-// Anaytics dashboard components
-import SalesByCountry from "layouts/dashboards/analytics/components/SalesByCountry";
-
+import ComplexProjectCard from "examples/Cards/ProjectCards/ComplexProjectCard";
 // Data
-import reportsBarChartData from "layouts/dashboards/analytics/data/reportsBarChartData";
 import reportsLineChartData from "layouts/dashboards/analytics/data/reportsLineChartData";
 
 // Images
-import booking1 from "assets/images/products/product-1-min.jpg";
-import booking2 from "assets/images/products/product-2-min.jpg";
-import booking3 from "assets/images/products/product-3-min.jpg";
+import team1 from "assets/images/team-1.jpg";
+import team2 from "assets/images/team-2.jpg";
+import team3 from "assets/images/team-3.jpg";
+import team4 from "assets/images/team-4.jpg";
+import team5 from "assets/images/team-5.jpg";
+import logoSlack from "assets/images/small-logos/logo-slack.svg";
 import { AuthContext } from "context";
 
 function Analytics() {
   const { sales, tasks } = reportsLineChartData;
 
   const { setIsAuthenticated, getCurrentUser } = useContext(AuthContext);
+
+  const [slackBotMenu, setSlackBotMenu] = useState(null);
 
   useEffect(() => {
     async function checkToken() {
@@ -61,6 +61,25 @@ function Analytics() {
     }
     checkToken();
   }, []);
+
+  // TeamProfileCard dropdown menu handlers
+  const openSlackBotMenu = (event) => setSlackBotMenu(event.currentTarget);
+  const closeSlackBotMenu = () => setSlackBotMenu(null);
+  // Dropdown menu template for the ComplexProjectCard
+  const renderMenu = (state, close) => (
+    <Menu
+      anchorEl={state}
+      anchorOrigin={{ vertical: "top", horizontal: "left" }}
+      transformOrigin={{ vertical: "top", horizontal: "right" }}
+      open={Boolean(state)}
+      onClose={close}
+      keepMounted
+    >
+      <MenuItem onClick={close}>Action</MenuItem>
+      <MenuItem onClick={close}>Another action</MenuItem>
+      <MenuItem onClick={close}>Something else here</MenuItem>
+    </Menu>
+  );
 
   // Action buttons for the BookingCard
   const actionButtons = (
@@ -85,12 +104,12 @@ function Analytics() {
 
   return (
     <DashboardLayout>
-      <DashboardNavbar />
+      {/* <DashboardNavbar /> */}
       <MDBox py={3}>
-        <Grid container>
+        {/* <Grid container>
           <SalesByCountry />
-        </Grid>
-        <MDBox mt={6}>
+        </Grid> */}
+        {/* <MDBox mt={6}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={4}>
               <MDBox mb={3}>
@@ -130,39 +149,10 @@ function Analytics() {
               </MDBox>
             </Grid>
           </Grid>
-        </MDBox>
+        </MDBox> */}
         <MDBox mt={1.5}>
           <Grid container spacing={3}>
-            <Grid item xs={12} md={6} lg={3}>
-              <MDBox mb={1.5}>
-                <ComplexStatisticsCard
-                  color="dark"
-                  icon="weekend"
-                  title="Bookings"
-                  count={281}
-                  percentage={{
-                    color: "success",
-                    amount: "+55%",
-                    label: "than lask week",
-                  }}
-                />
-              </MDBox>
-            </Grid>
-            <Grid item xs={12} md={6} lg={3}>
-              <MDBox mb={1.5}>
-                <ComplexStatisticsCard
-                  icon="leaderboard"
-                  title="Today's Users"
-                  count="2,300"
-                  percentage={{
-                    color: "success",
-                    amount: "+3%",
-                    label: "than last month",
-                  }}
-                />
-              </MDBox>
-            </Grid>
-            <Grid item xs={12} md={6} lg={3}>
+          <Grid item xs={12} md={6} lg={2.4}>
               <MDBox mb={1.5}>
                 <ComplexStatisticsCard
                   color="success"
@@ -177,10 +167,9 @@ function Analytics() {
                 />
               </MDBox>
             </Grid>
-            <Grid item xs={12} md={6} lg={3}>
+            <Grid item xs={12} md={6} lg={2.4}>
               <MDBox mb={1.5}>
                 <ComplexStatisticsCard
-                  color="primary"
                   icon="person_add"
                   title="Followers"
                   count="+91"
@@ -192,43 +181,108 @@ function Analytics() {
                 />
               </MDBox>
             </Grid>
+            <Grid item xs={12} md={6} lg={2.4}>
+              <MDBox mb={1.5}>
+                <ComplexStatisticsCard
+                  color="primary"
+                  icon="leaderboard"
+                  title="Today's Users"
+                  count="2,300"
+                  percentage={{
+                    color: "success",
+                    amount: "+3%",
+                    label: "than last month",
+                  }}
+                />
+              </MDBox>
+            </Grid>
+            <Grid item xs={12} md={6} lg={2.4}>
+              <MDBox mb={1.5}>
+                <ComplexStatisticsCard
+                  color="dark"
+                  icon="account_circle"
+                  title="Bookings"
+                  count={281}
+                  percentage={{
+                    color: "success",
+                    amount: "+55%",
+                    label: "than lask week",
+                  }}
+                />
+              </MDBox>
+            </Grid>
+            <Grid item xs={12} md={6} lg={2.4}>
+              <MDBox mb={1.5}>
+                <ComplexStatisticsCard
+                  color="dark"
+                  icon="account_circle"
+                  title="Bookings"
+                  count={281}
+                  percentage={{
+                    color: "success",
+                    amount: "+55%",
+                    label: "than lask week",
+                  }}
+                />
+              </MDBox>
+            </Grid>
           </Grid>
         </MDBox>
         <MDBox mt={2}>
           <Grid container spacing={3}>
-            <Grid item xs={12} md={6} lg={4}>
+            <Grid item xs={12} md={12} lg={12}>
               <MDBox mt={3}>
-                <BookingCard
-                  image={booking1}
-                  title="Cozy 5 Stars Apartment"
-                  description='The place is close to Barceloneta Beach and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main night life in Barcelona.'
-                  price="$899/night"
-                  location="Barcelona, Spain"
-                  action={actionButtons}
+                <div>
+                  
+                </div>
+              </MDBox>
+            </Grid>
+          </Grid>
+        </MDBox>
+        <MDBox mt={5}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={6} lg={4}>
+              <MDBox mb={1.5} mt={1.5}>
+                <ComplexProjectCard
+                  image={logoSlack}
+                  title="Goals"
+                  description="Manage Twitter"
+                  dateTime="02.03.22"
+                  members={[team1, team2, team3, team4, team5]}
+                  dropdown={{
+                    action: openSlackBotMenu,
+                    menu: renderMenu(slackBotMenu, closeSlackBotMenu),
+                  }}
                 />
               </MDBox>
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
-              <MDBox mt={3}>
-                <BookingCard
-                  image={booking2}
-                  title="Office Studio"
-                  description='The place is close to Metro Station and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the night life in London, UK.'
-                  price="$1.119/night"
-                  location="London, UK"
-                  action={actionButtons}
+              <MDBox mb={1.5} mt={1.5}>
+                <ComplexProjectCard
+                  image={logoSlack}
+                  title="Goals"
+                  description="Analyze Your Marketing"
+                  dateTime="02.03.22"
+                  members={[team1, team2, team3, team4, team5]}
+                  dropdown={{
+                    action: openSlackBotMenu,
+                    menu: renderMenu(slackBotMenu, closeSlackBotMenu),
+                  }}
                 />
               </MDBox>
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
-              <MDBox mt={3}>
-                <BookingCard
-                  image={booking3}
-                  title="Beautiful Castle"
-                  description='The place is close to Metro Station and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main night life in Milan.'
-                  price="$459/night"
-                  location="Milan, Italy"
-                  action={actionButtons}
+              <MDBox mb={1.5} mt={1.5} >
+                <ComplexProjectCard
+                  image={logoSlack}
+                  title="Goals"
+                  description="Content Creation"
+                  dateTime="02.03.22"
+                  members={[team1, team2, team3, team4, team5]}
+                  dropdown={{
+                    action: openSlackBotMenu,
+                    menu: renderMenu(slackBotMenu, closeSlackBotMenu),
+                  }}
                 />
               </MDBox>
             </Grid>
